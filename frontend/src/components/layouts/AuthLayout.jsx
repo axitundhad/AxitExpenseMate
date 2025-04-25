@@ -1,25 +1,36 @@
 import React from "react";
 import Card2 from "../../assets/images/Card2.png";
-
-import {LuTrendingUpDown} from 'react-icons/lu'
+import { LuTrendingUpDown } from "react-icons/lu";
 
 const AuthLayout = ({ children }) => {
   return (
-    <div className="flex">
-      <div className="w-screen h-screen md:w-[60vw] px-12 pt-8 pb-12 ">
-        <div className="flex items-center">
-          <img className="w-[50px] h-[50px] " src="logo.png" alt="AxitExpenseMate" />
-          <h2 className="text-2xl font-semibold text-black ml-4">AxitExpenseMate</h2>
-          </div>
-          {/*  */}
+    <div className="flex h-screen w-full overflow-hidden lg:overflow-hidden">
+      {/* Left: Form - 100% on small screens, 60% on devices larger than 640px */}
+      <div className="w-full sm:w-[60%] h-full overflow-y-auto lg:overflow-y-hidden md:overflow-y-hidden  px-4 sm:px-6 md:px-10 pt-2 sm:pt-8 pb-8">
+        <div className="flex items-center mt-6 mb-6 md:mb-0 sm:mt-[1.5px]">
+          <img
+            className="w-10 h-10 sm:w-[50px] sm:h-[50px]"
+            src="logo.png"
+            alt="AxitExpenseMate"
+          />
+          <h2 className="text-xl sm:text-2xl font-semibold text-black ml-3 sm:ml-4">
+            AxitExpenseMate
+          </h2>
+        </div>
         {children}
       </div>
-      <div className="hidden md:block w-[40vw] h-screen bg-violet-50 bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative">
-        
+
+      {/* Right: Side Card - hidden on small screens, visible on devices larger than 640px */}
+      <div className="hidden sm:block w-[40vw] h-screen bg-violet-50 bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative">
+        {/* Background decorative blobs */}
+        {/* <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-[40px] bg-purple-600 absolute -top-5 -left-4"></div>
+        <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-[40px] border-[12px] sm:border-[16px] border-fuchsia-200 absolute top-[30%] -right-8"></div>
+        <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-[40px] border-violet-500 absolute bottom-6 -left-4"></div> */}
         <div className="w-48 h-48 rounded-[40px] bg-purple-600 absolute -top-7 -left-5"></div>
         <div className="w-48 h-48 rounded-[40px] border-[20px] border-fuchsia-200 absolute top-[30%] -right-10"></div>
         <div className="w-48 h-48 rounded-[40px] border-violet-500 absolute bottom-7 -left-5"></div>
 
+        {/* Info Card */}
         <div className="grid grid-cols-1 z-20">
           <StateInfoCard
             icon={<LuTrendingUpDown />}
@@ -32,6 +43,7 @@ const AuthLayout = ({ children }) => {
         <img
           src={Card2}
           className="w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/15"
+          alt="Card2"
         />
       </div>
     </div>

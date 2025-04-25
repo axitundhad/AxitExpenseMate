@@ -16,12 +16,9 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
 
   const { updateUser } = useContext(UserContext);
-
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
 
-  //Handle Sign Up Form Submit
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -29,12 +26,10 @@ const SignUp = () => {
       setError("Please enter your name");
       return;
     }
-
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
-
     if (!password) {
       setError("Please enter the password");
       return;
@@ -42,10 +37,8 @@ const SignUp = () => {
 
     setError("");
 
-    //SignUp API call
     try {
       let profileImageUrl = "";
-      //upload image if present
       if (profilePic) {
         const imageUploadRes = await uploadImage(profilePic);
         profileImageUrl = imageUploadRes.imageUrl || "";
@@ -55,7 +48,7 @@ const SignUp = () => {
         fullName,
         email,
         password,
-        profileImageUrl
+        profileImageUrl,
       });
 
       const { token, user } = response.data;
@@ -66,62 +59,73 @@ const SignUp = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong. Please try agin later");
-      }
+      setError(
+        error.response?.data?.message ||
+          "Something went wrong. Please try again later"
+      );
     }
   };
 
   return (
     <AuthLayout>
-      <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Create an Account</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          Join us today by entering your details below.
-        </p>
-
-        <form onSubmit={handleSignUp}>
-          <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
-              value={fullName}
-              onChange={({ target }) => setFullName(target.value)}
-              label="Full Name"
-              placeholder="Axit"
-              type="text"
-            />
-
-            <Input
-              value={email}
-              onChange={({ target }) => setEmail(target.value)}
-              label="Email Address"
-              placeholder="axit@gmail.com"
-              type="text"
-            />
-            <div className="col-span-2">
-              <Input
-                value={password}
-                onChange={({ target }) => setPassword(target.value)}
-                label="Password"
-                placeholder="Min 8 characters"
-                type="password"
-              />
-            </div>
-          </div>
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
-          <button type="submit" className="btn-primary">
-            SIGN UP
-          </button>
-          <p className="text-[13px] text-slate-800 mt-3">
-            Already have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/login">
-              Login
-            </Link>
+      <div className="w-full h-full flex flex-col justify-center px-2 sm:px-4 py-6 sm:py-10">
+        
+        <div className="w-full max-w-xl mx-auto mt-5 sm:mt-3 mb-2">
+          <h3 className="text-xl font-semibold text-black">
+            Create an Account
+          </h3>
+          <p className="text-xs text-slate-700 mt-[5px] mb-6">
+            Join us today by entering your details below.
           </p>
-        </form>
+
+          <form onSubmit={handleSignUp}>
+            <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
+
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+              <Input
+                value={fullName}
+                onChange={({ target }) => setFullName(target.value)}
+                label="Full Name"
+                placeholder="Axit"
+                type="text"
+                className="p-2 border border-gray-300 rounded"
+              />
+
+              <Input
+                value={email}
+                onChange={({ target }) => setEmail(target.value)}
+                label="Email Address"
+                placeholder="axit@gmail.com"
+                type="text"
+                className="p-2 border border-gray-300 rounded col-span-1"
+              />
+
+              <div className="col-span-1 md:col-span-2">
+                <Input
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                  label="Password"
+                  placeholder="Min 8 characters"
+                  type="password"
+                  className="p-2 border border-gray-300 rounded"
+                />
+              </div>
+            </div>
+
+            {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+
+            <button type="submit" className="btn-primary w-full mt-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
+              SIGN UP
+            </button>
+
+            <p className="text-[13px] text-slate-800 mt-3 text-center">
+              Already have an account?{" "}
+              <Link className="font-medium text-primary underline" to="/login">
+                Login
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </AuthLayout>
   );

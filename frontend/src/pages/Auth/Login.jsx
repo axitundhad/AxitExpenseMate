@@ -12,59 +12,56 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const {updateUser} = useContext(UserContext);
-
+  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  //handle Login form submit
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if(!validateEmail(email)){
+    if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
 
-    if(!password){
+    if (!password) {
       setError("Please enter the password");
       return;
     }
 
     setError("");
 
-    //Login API call
     try {
-      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN,{
-        email, 
-        password
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
       });
-    const {token, user} = response.data;
-    if(token){
-      localStorage.setItem("token",token);
-      updateUser(user)
-      navigate("/dashboard");
-    }
-
-
+      const { token, user } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(user);
+        navigate("/dashboard");
+      }
     } catch (error) {
-      if(error.response && error.response.data.message){
-        setError(error.response.data.message);
-      }
-      else{
-        setError('Something went wrong. Please try again later');
-      }
+      setError(
+        error.response?.data?.message ||
+          "Something went wrong. Please try again later"
+      );
     }
   };
 
   return (
     <AuthLayout>
-      <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          Please enter your details to log in
-        </p>
+      <div className="w-full h-full flex flex-col justify-center px-2 sm:px-4 py-6 sm:py-6">
+        <div className="w-full  mx-auto">
+          {/* max-w-md */}
+          <h3 className="text-xl sm:text-2xl font-semibold text-black">
+            Welcome Back
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-700 mt-1 mb-5">
+            Please enter your details to log in
+          </p>
 
-        <form onSubmit={handleLogin}>
+          <form onSubmit={handleLogin} className="space-y-2">
             <Input
               value={email}
               onChange={({ target }) => setEmail(target.value)}
@@ -72,7 +69,6 @@ const Login = () => {
               placeholder="axit@gmail.com"
               type="text"
             />
-
             <Input
               value={password}
               onChange={({ target }) => setPassword(target.value)}
@@ -80,17 +76,20 @@ const Login = () => {
               placeholder="Min 8 characters"
               type="password"
             />
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
-          <button type="submit" className="btn-primary">
-            LOGIN
-          </button>
-          <p className="text-[13px] text-slate-800 mt-3">
-            Don't have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/signup">
-              SignUp
-            </Link>
-          </p>
-        </form>
+            {error && <p className="text-red-500 text-xs pb-2">{error}</p>}
+
+            <button type="submit" className="btn-primary w-full cursor-pointer">
+              LOGIN
+            </button>
+
+            <p className="text-[13px] sm:text-sm text-slate-800 mt-3 text-center">
+              Don't have an account?{" "}
+              <Link className="font-medium text-primary underline" to="/signup">
+                SignUp
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </AuthLayout>
   );
