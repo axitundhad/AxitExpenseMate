@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <AuthLayout>
-      <div className="w-full h-full flex flex-col justify-center px-2 sm:px-4 py-6 sm:py-6">
+      <div className="w-full h-full flex justify-center px-2 sm:px-4 py-1 sm:py-1">
         <div className="w-full  mx-auto">
           {/* max-w-md */}
           <h3 className="text-xl sm:text-2xl font-semibold text-black">
