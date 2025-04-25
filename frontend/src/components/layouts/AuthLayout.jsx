@@ -13,7 +13,7 @@ const AuthLayout = ({ children }) => {
             src="logo.png"
             alt="AxitExpenseMate"
           />
-          <h2 className="text-xl sm:text-2xl font-semibold text-black ml-3 sm:ml-4">
+          <h2 className="text-2xl sm:text-2xl font-semibold text-black ml-3 sm:ml-4">
             AxitExpenseMate
           </h2>
         </div>
