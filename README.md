@@ -4,7 +4,6 @@
 
 _**Master Your Finances, Simplify Your Life**_
 
-![last-commit](https://img.shields.io/github/last-commit/axitundhad/AxitExpenseMate?style=flat&logo=git&logoColor=white&color=0080ff)
 ![repo-top-language](https://img.shields.io/github/languages/top/axitundhad/AxitExpenseMate?style=flat&color=0080ff)
 ![repo-language-count](https://img.shields.io/github/languages/count/axitundhad/AxitExpenseMate?style=flat&color=0080ff)
 
@@ -34,8 +33,6 @@ _**Master Your Finances, Simplify Your Life**_
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Usage](#usage)
-  - [Testing](#testing)
 
 ---
 
